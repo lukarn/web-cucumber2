@@ -43,7 +43,6 @@ public class BasePage extends Page {
     public void setZalogujButton()
     {
         clickElement(this.zalogujButton);
-        new MainPage(driver);
     }
 
     public BasePage setLoginButton()
@@ -64,11 +63,13 @@ public class BasePage extends Page {
         return this;
     }
 
-    public void setPasswordInput(String text)
+    public BasePage setPasswordInput(String text)
     {
         clickElement(this.passwordInput);
         this.passwordInput.clear();
         this.passwordInput.sendKeys(text);
+
+        return this;
     }
 
 

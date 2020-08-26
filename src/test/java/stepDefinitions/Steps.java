@@ -2,6 +2,7 @@ package stepDefinitions;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -30,12 +31,13 @@ public class Steps {
 //    private String envLoginLogin = System.getenv("LOGIN_LOGIN");
 //    private String envLoginPassword = System.getenv("LOGIN_PASSWORD");
 //    private int envTimeoutIsAt = Integer.parseInt(System.getenv("TEST_TIMEOUT"));
-    private String actualBrowser;
+
+//    private String actualBrowser;
 
     //from here
-    private String envLoginLogin = "sledzik";
-    private String envLoginPassword = "h@rdh@rd";
-    private int envTimeoutIsAt = 60;
+    private final String envLoginLogin = "sledzik";
+    private final String envLoginPassword = "h@rdh@rd";
+    private final int envTimeoutIsAt = 60;
 
     private static WebDriver driver;
 
@@ -84,11 +86,8 @@ public class Steps {
     }
 
 
-    @Given("^Open the \"(.*)\" and launch the \"(.*)\"$")
-    public void open_browser_and_launch_the_application(String browser,String basePageUrl)
-    {
-        System.out.println("============================================================================");
-        System.out.println("=This Step open the " + browser + " and launch the " + basePageUrl + ".");
+    @Given("Open the {string} and launch {string}")
+    public void openTheAndLaunch(String browser, String basePageUrl) {
 
         // setup driver
         DriverManager driverManager = new DriverManager(driver);
@@ -104,167 +103,134 @@ public class Steps {
         workPage = new WorkPage(driver);
         trainPage = new TrainPage(driver);
 
-        if(browser.equalsIgnoreCase("chrome")) {
-            actualBrowser = "chrome";
-            takeScreenshot();
-        }else if(browser.equalsIgnoreCase("firefox")){
-            actualBrowser = "firefox";
-        }else{
-            System.out.println("Browser not recognized [NOK]");
-            actualBrowser = "not-recognized";
-        }
-
-
+//        if(browser.equalsIgnoreCase("chrome")) {
+//            actualBrowser = "chrome";
+//            takeScreenshot();
+//        }else if(browser.equalsIgnoreCase("firefox")){
+//            actualBrowser = "firefox";
+//        }else{
+//            System.out.println("Browser not recognized [NOK]");
+//            actualBrowser = "not-recognized";
+//        }
 
     }
 
-    @When("^Enter the Username and Password$")
-    public void enter_the_Username_and_Password()
-    {
-        System.out.println("============================================================================");
-        System.out.println("This step enter the Username and Password on the login page.");
 
+    @When("Click Login button if it shows up")
+    public void clickLoginButtonIfItShowsUp() {
+        basePage.setLoginButton();
+    }
+
+    @And("Enter the Username")
+    public void enterTheUsername() {
+        basePage.setLoginInput(envLoginLogin);
+    }
+
+    @And("Enter the Password")
+    public void enterThePassword() {
+        basePage.setPasswordInput(envLoginPassword);
+    }
+
+    @And("Click Zaloguj button")
+    public void clickZalogujButton() {
+        basePage.setZalogujButton();
+    }
+
+    @Then("Check if user is logged in")
+    public void checkIfUserIsLoggedIn() {
+        assertTrue("----------Log in fail - you are not on MainPage", mainPage.isAt(envTimeoutIsAt));
+    }
+
+    @And("Take a screenshot for chrome - step param {string}")
+    public void takeAScreenshotForChromeStepParam(String browser) {
+        if(browser.equalsIgnoreCase("chrome")) {
+            takeScreenshot();
+        }else{
+            System.out.println("Photo only for chrome. Actual browser: " + browser);
+        }
+    }
+    ///////////////////////////////////////////////////////////////////
+
+    @When("Login correct")
+    public void loginCorrect() {
         basePage.setLoginButton()
                 .setLoginInput(envLoginLogin)
-                .setPasswordInput(envLoginPassword);
+                .setPasswordInput(envLoginPassword)
+                .setZalogujButton();
 
-        if(actualBrowser.equalsIgnoreCase("chrome")) {
-            takeScreenshot();
+        assertTrue("----------Log in fail - you are not on MainPage", mainPage.isAt(envTimeoutIsAt));
+    }
+
+    @And("Click Work Button and go to work results")
+    public void clickWorkButtonAndGoToWorkResults() {
+        try {
+            mainPage.setWorkTaskButton();
+        }
+        catch (Exception e)
+        {
+            mainPage.setMenuMyPlacesButton()
+                    .setMenuWorkButton();
         }
 
+        assertTrue("----------Error - you are not on WorkPage", workPage.isAt(envTimeoutIsAt));
+
+        if(!workPage.workCheck())
+        {
+            workPage.setWorkButton();
+            assertTrue("----------Error - you are not on WorkPage", workPage.isAt(envTimeoutIsAt));
+        }
+    }
+
+    @Then("Check work results")
+    public void checkWorkResults() {
+
+        assertTrue("----------Error - Can not read production results after work", workPage.workCheck());
 
     }
 
-    @Then("^Click Zaloguj button$")
-    public void clickZalogujButton()
-    {
-        System.out.println("============================================================================");
-        System.out.println("This step click on the Zaloguj button.");
-
-        basePage.setZalogujButton();
-
-        assertTrue("----------Log in fail - you are not on MainPage", mainPage.isAt(envTimeoutIsAt));
-
-        if(actualBrowser.equalsIgnoreCase("chrome")) {
-            takeScreenshot();
+    ////////////////////////////////////////////////////////////////
+    @And("Click Train button and go to train results")
+    public void clickTrainButtonAndGoToTrainResults() {
+        try {
+            mainPage.setTrainTaskButton();
+        }
+        catch (Exception e)
+        {
+            mainPage.setMenuMyPlacesButton()
+                    .setMenuTrainButton();
         }
 
+        assertTrue("----------Error - you are not on TrainPage", trainPage.isAt(envTimeoutIsAt));
 
+        if(!trainPage.trainCheck())
+        {
+            trainPage.setTrainButton();
+            assertTrue("----------Error - you are not on TrainPage", trainPage.isAt(envTimeoutIsAt));
+        }
+    }
+
+    @Then("Check train results")
+    public void checkTrainResults() {
+
+                assertTrue("----------Error - Can not read train countdown after training", trainPage.trainCheck());
+
+    }
+
+
+
+    @After
+    public static void endOfTestSuite()
+    {
         if(driver != null){
             driver.quit();
         }else{
             System.out.println("Something is wrong ---> driver = null in AfterMethod");
         }
-
+        System.out.println("============================================================================");
+        System.out.println("============================================================================");
+        System.out.println("=============================TEST=END=======================================");
     }
 
-//    //////////////////////
-//    @When("^Login correct$")
-//    public void loginCorrect()
-//    {
-//        System.out.println("============================================================================");
-//        System.out.println("Enter username, password and login correct.");
-//
-//        basePage.setLoginButton()
-//                .setLoginInput(envLoginLogin)
-//                .setPasswordInput(envLoginPassword);
-//
-//        basePage.setZalogujButton();
-//
-//        if(actualBrowser.equalsIgnoreCase("chrome")) {
-//            takeScreenshot();
-//        }
-//
-//
-//    }
-//
-//    @Then("^Click Work button or check work result if user worked today$")
-//    public void checkWorkActivity()
-//    {
-//        System.out.println("============================================================================");
-//        System.out.println("This step clicks on the Work button (when user did not work today) or only checks work results (if user has worked already)");
-//
-//
-//        try {
-//            mainPage.setWorkTaskButton();
-//        }
-//        catch (Exception e)
-//        {
-//            mainPage.setMenuMyPlacesButton()
-//                    .setMenuWorkButton();
-//        }
-//
-//        assertTrue("----------Error - you are not on WorkPage", workPage.isAt(envTimeoutIsAt));
-//
-//        if(!workPage.workCheck())
-//        {
-//            workPage.setWorkButton();
-//            assertTrue("----------Error - you are not on WorkPage", workPage.isAt(envTimeoutIsAt));
-//        }
-//
-//        assertTrue("----------Error - Can not read production results after work", workPage.workCheck());
-//
-//
-//
-//        if(actualBrowser.equalsIgnoreCase("chrome")) {
-//            takeScreenshot();
-//        }
-//
-//
-//    }
-//
-/////////////////////////////////
-//
-//    @Then("^Click Train button or check train result if user trained today$")
-//    public void checkTrainActivity()
-//    {
-//        System.out.println("============================================================================");
-//        System.out.println("This step clicks on the Train button (when user did not work today) or only checks train results (if user has trained already)");
-//
-//
-//        try {
-//            mainPage.setTrainTaskButton();
-//        }
-//        catch (Exception e)
-//        {
-//            mainPage.setMenuMyPlacesButton()
-//                    .setMenuTrainButton();
-//        }
-//
-//
-//        assertTrue("----------Error - you are not on TrainPage", trainPage.isAt(envTimeoutIsAt));
-//
-//
-//
-//        if(!trainPage.trainCheck())
-//        {
-//            trainPage.setTrainButton();
-//            assertTrue("----------Error - you are not on TrainPage", trainPage.isAt(envTimeoutIsAt));
-//        }
-//
-//        assertTrue("----------Error - Can not read train countdown after training", trainPage.trainCheck());
-//
-//        if(actualBrowser.equalsIgnoreCase("chrome")) {
-//            takeScreenshot();
-//        }
-//
-//
-//
-//    }
-//
-//
-//
-//    @After
-//    public static void endOfTestSuite()
-//    {
-//        if(driver != null){
-//            driver.quit();
-//        }else{
-//            System.out.println("Something is wrong ---> driver = null in AfterMethod");
-//        }
-//        System.out.println("============================================================================");
-//        System.out.println("============================================================================");
-//        System.out.println("=============================TEST=END=======================================");
-//    }
+
 
 }
