@@ -13,7 +13,6 @@ Feature: Login and Main tasks
       And Click Zaloguj button
 
     Then Check if user is logged in
-      And Take a screenshot for chrome - step param "<browser>"
 
     Examples:
       | browser | basePage                   |
@@ -27,12 +26,11 @@ Feature: Login and Main tasks
 
 
     Given Open the "<browser>" and launch "<basePage>"
+      And Login correct
 
-    When Login correct
-      And Click Work Button and go to work results
+    When Click Work Button and go to work results
 
     Then  Check work results
-      And Take a screenshot for chrome - step param "<browser>"
 
     Examples:
       | browser | basePage                   |
@@ -46,12 +44,11 @@ Feature: Login and Main tasks
 
 
     Given Open the "<browser>" and launch "<basePage>"
+      And Login correct
 
-    When Login correct
-      And Click Train button and go to train results
+    When Click Train button and go to train results
 
     Then  Check train results
-      And Take a screenshot for chrome - step param "<browser>"
 
     Examples:
       | browser | basePage                   |
