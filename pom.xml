@@ -58,6 +58,7 @@
                         <version>2.22.2</version>
                     </dependency>
 
+
                 </dependencies>
                 <configuration>
                     <argLine>-Dfile.encoding=UTF-8</argLine>
@@ -192,6 +193,9 @@
             <artifactId>surefire-junit47</artifactId>
             <version>2.22.2</version>
         </dependency>
+
+
+
 
 
 
