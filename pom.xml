@@ -77,13 +77,14 @@
                 <executions>
                     <execution>
                         <id>execution</id>
-                        <phase>verify</phase>
+                        <!--<phase>verify</phase>-->
+                        <phase>test</phase>
                         <goals>
                             <goal>generate</goal>
                         </goals>
                         <configuration>
                             <projectName>esimcucumber2</projectName>
-                            <outputDirectory>${project.build.directory/cucumber-report-html}</outputDirectory>
+                            <outputDirectory>${project.build.directory}</outputDirectory>
                             <inputDirectory>${project.build.directory}</inputDirectory>
                             <jsonFiles>
                                 <param>**/*.json</param>
