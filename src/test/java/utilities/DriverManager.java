@@ -83,20 +83,20 @@ public class DriverManager {
 
         WebDriver driver = null;
 
-        try {
-            driver = new RemoteWebDriver(new URL("http://localhost:5555/wd/hub"), options);
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail("---------Driver = null - problem during chrome init in DriverManager");
-        }
-
-
 //        try {
-//            driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), options);
+//            driver = new RemoteWebDriver(new URL("http://localhost:5555/wd/hub"), options);
 //        } catch (Exception e) {
 //            e.printStackTrace();
-//            fail("---------Driver = null - problem during chrome init in DriverManager; check if your webdriver server is working properly and its URL address (e.g. port, versions) in DriverManager.java");
+//            fail("---------Driver = null - problem during chrome init in DriverManager");
 //        }
+
+
+        try {
+            driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), options);
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("---------Driver = null - problem during chrome init in DriverManager; check if your webdriver server is working properly and its URL address (e.g. port, versions) in DriverManager.java");
+        }
 
 
         return driver;
@@ -120,8 +120,8 @@ public class DriverManager {
         WebDriver driver = null;
 
         try {
-            //driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), options);
-            driver = new RemoteWebDriver(new URL("http://localhost:5555/wd/hub"), options);
+            driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), options);
+            //driver = new RemoteWebDriver(new URL("http://localhost:5555/wd/hub"), options);
             getLocalHost();
         } catch (Exception e) {
             e.printStackTrace();

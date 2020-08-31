@@ -17,7 +17,7 @@ Feature: Login and Main tasks
     Examples:
       | browser | basePage                   |
       | chrome  | https://primera.e-sim.org/ |
-#      | firefox | https://primera.e-sim.org/ |
+      | firefox | https://primera.e-sim.org/ |
 
 
 
@@ -35,7 +35,7 @@ Feature: Login and Main tasks
     Examples:
       | browser | basePage                   |
       | chrome  | https://primera.e-sim.org/ |
-#      | firefox | https://primera.e-sim.org/ |
+      | firefox | https://primera.e-sim.org/ |
 
 
 
@@ -53,4 +53,4 @@ Feature: Login and Main tasks
     Examples:
       | browser | basePage                   |
       | chrome  | https://primera.e-sim.org/ |
-#      | firefox | https://primera.e-sim.org/ |
+      | firefox | https://primera.e-sim.org/ |
