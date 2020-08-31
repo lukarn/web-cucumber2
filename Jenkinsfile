@@ -67,14 +67,14 @@ pipeline {
             }
         }
 
-        stage('Compile Stage') {
-                steps {
-                    catchError(buildResult: 'FAILURE', stageResult: 'FAILURE'){
-                    echo 'Starting Compile..'
-                    bat 'mvn clean compile'
-                    }
-                }
-        }
+//        stage('Compile Stage') {
+//                steps {
+//                    catchError(buildResult: 'FAILURE', stageResult: 'FAILURE'){
+//                    echo 'Starting Compile..'
+//                    bat 'mvn clean compile'
+//                    }
+//                }
+//        }
 
         stage('Testing Stage1') {
                  steps {
