@@ -204,16 +204,16 @@ public class Steps {
     @After
     public static void endOfTestSuite(Scenario scenario)
     {
-        System.out.println("scenario.getStatus() >>>>>>>" + scenario.getStatus() + "<<<<<<<");
-        System.out.println("scenario.isFailed() >>>>>>>" + scenario.isFailed() + "<<<<<<<");
+        System.out.println("=scenario.getStatus() >>>>>>>" + scenario.getStatus() + "<<<<<<<");
+        System.out.println("=scenario.isFailed() >>>>>>>" + scenario.isFailed() + "<<<<<<<");
         //System.out.println("scenario.getId() >>>>>>>" + scenario.getId() + "<<<<<<<");
-        System.out.println("scenario.getName() >>>>>>>" + scenario.getName() + "<<<<<<<");
+        System.out.println("=scenario.getName() >>>>>>>" + scenario.getName() + "<<<<<<<");
         //System.out.println("scenario.getLine() >>>>>>>" + scenario.getLine() + "<<<<<<<");
-        System.out.println("scenario.getSourceTagNames() >>>>>>>" + scenario.getSourceTagNames() + "<<<<<<<");
+        System.out.println("=scenario.getSourceTagNames() >>>>>>>" + scenario.getSourceTagNames() + "<<<<<<<");
         //System.out.println("scenario.getUri() >>>>>>>" + scenario.getUri() + "<<<<<<<");
 
         String simpleTagsString = Objects.toString(scenario.getSourceTagNames()).replace("@","").replace("[","").replace("]","").replace(" ","").replace(","," ");
-        System.out.println("Tags in simle format >>>>>>>" + simpleTagsString + "<<<<<<<");
+        System.out.println("=Tags in simle format >>>>>>>" + simpleTagsString + "<<<<<<<");
 
 
                 
@@ -235,6 +235,8 @@ public class Steps {
         System.out.println("============================================================================");
         System.out.println("============================================================================");
         System.out.println("=============================TEST=END=======================================");
+        System.out.println();
+        System.out.println();
     }
 
 
