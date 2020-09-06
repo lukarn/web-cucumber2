@@ -84,7 +84,7 @@
                         </goals>
                         <configuration>
                             <projectName>esimcucumber2</projectName>
-                            <outputDirectory>${project.build.directory}</outputDirectory>
+                            <outputDirectory>${project.build.directory}/cucumber-report-html</outputDirectory>
                             <inputDirectory>${project.build.directory}</inputDirectory>
                             <jsonFiles>
                                 <param>**/*.json</param>

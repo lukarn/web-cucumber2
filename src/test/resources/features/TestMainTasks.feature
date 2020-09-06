@@ -1,23 +1,23 @@
 Feature: Login and Main tasks
 
 
-  @LoginCorrect
-  Scenario Outline: Verification of login correct (Zaloguj button)
-
-
-    Given Open the "<browser>" and launch "<basePage>"
-
-    When Click Login button if it shows up
-      And Enter the Username
-      And Enter the Password
-      And Click Zaloguj button
-
-    Then Check if user is logged in
-
-    Examples:
-      | browser | basePage                   |
-      | chrome  | https://primera.e-sim.org/ |
-      | firefox | https://primera.e-sim.org/ |
+#  @LoginCorrect
+#  Scenario Outline: Verification of login correct (Zaloguj button)
+#
+#
+#    Given Open the "<browser>" and launch "<basePage>"
+#
+#    When Click Login button if it shows up
+#      And Enter the Username
+#      And Enter the Password
+#      And Click Zaloguj button
+#
+#    Then Check if user is logged in
+#
+#    Examples:
+#      | browser | basePage                   |
+#      | chrome  | https://primera.e-sim.org/ |
+#      | firefox | https://primera.e-sim.org/ |
 
 
 
