@@ -1,13 +1,16 @@
-web test exercises (Jenkins with github, env. variables, docker, Jenkinsfile, Cucumber with Maven)
-https://youtu.be/ewWnBQQYcqU
-env. variables directly in Jenkins job
+web test exercises (Jenkins with github, env. variables, docker, Jenkinsfile - pipeline, Maven with Cucumber report)
+https://youtu.be/stX4SSzUQDA
+env. variables (url, login, pass) directly in Jenkins job
 
-launch by Maven: esimcucumber\pom.xml (listener with screenshots on test fail)
-launch by testng: esimcucumber\src\test\resources\testng.xml (no screenshots on fail)
+launch by Maven: pom.xml
+launch by runner (Unit test): RunTest.java
 
 important files:
-project_dir\pom.xml
-project_dir\src\test\resources\testng.xml
-project_dir\src\test\java\tests\*.java
+POM.xml: project_dir/pom.xml
+feature file: project_dir/src/test/resources/features/TestMainTasks.feature
+test runner: project_dir/src/test/java/runner/RunTest.java
+Step definitions: project_dir/src/test/java/stepDefinitions/Steps.java
+pages: project_dir/src/test/java/pages
+FF/chrome configuration: project_dir/src/test/java/utilities/DriverManager.java
 
-screenshots on test fail in \screenShoots\
+screenshots e.g. on failed or passed  in /screenShoots
