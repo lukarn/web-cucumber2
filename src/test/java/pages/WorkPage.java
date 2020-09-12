@@ -4,7 +4,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class WorkPage extends Page {
 
@@ -23,9 +22,9 @@ public class WorkPage extends Page {
     @FindBy(css = "#productionReportTable>tbody>tr>#productionDisplayInTable")
     private WebElement workProductionResult;
 
-    public WorkPage(WebDriver driver)
+    public WorkPage(WebDriver driver, int wait)
     {
-        super(driver);
+        super(driver, wait);
     }
 
 
@@ -44,7 +43,7 @@ public class WorkPage extends Page {
     {
         try
         {
-            WebDriverWait wait = new WebDriverWait(driver, 30);
+            //WebDriverWait wait = new WebDriverWait(driver, 30);
             wait.until(ExpectedConditions.visibilityOf(this.workProductionResult));
             System.out.println("Production result is: " + getWorkProductionResult() + " [OK]");
             return true;

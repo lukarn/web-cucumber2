@@ -32,9 +32,9 @@ public class MainPage extends Page {
 
 
 
-    public MainPage(WebDriver driver)
+    public MainPage(WebDriver driver, int wait)
     {
-        super(driver);
+        super(driver, wait);
     }
 
     public void setTrainTaskButton()
@@ -50,7 +50,7 @@ public class MainPage extends Page {
     public MainPage setMenuMyPlacesButton()
     {
         clickElement(this.menuMyPlacesButton);
-        return new MainPage(driver);
+        return this;
     }
 
     public void setMenuWorkButton()

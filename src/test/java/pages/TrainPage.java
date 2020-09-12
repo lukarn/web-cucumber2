@@ -4,7 +4,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class TrainPage extends Page {
 
@@ -24,9 +23,9 @@ public class TrainPage extends Page {
     private WebElement timeCountdown;
 
 
-    public TrainPage(WebDriver driver)
+    public TrainPage(WebDriver driver, int wait)
     {
-        super(driver);
+        super(driver, wait);
     }
 
 
@@ -45,7 +44,7 @@ public class TrainPage extends Page {
     {
         try
         {
-            WebDriverWait wait = new WebDriverWait(driver, 30);
+            //WebDriverWait wait = new WebDriverWait(driver, 30);
             wait.until(ExpectedConditions.visibilityOf(this.timeCountdown));
             System.out.println("Next train : " + getTimeCountdown() + " [OK]");
             return true;

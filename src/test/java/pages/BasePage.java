@@ -35,9 +35,9 @@ public class BasePage extends Page {
 
 
 
-    public BasePage(WebDriver driver)
+    public BasePage(WebDriver driver, int wait)
     {
-        super(driver);
+        super(driver, wait);
     }
 
     public void setZalogujButton()

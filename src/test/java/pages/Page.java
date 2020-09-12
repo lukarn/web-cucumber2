@@ -16,11 +16,13 @@ import static org.awaitility.Awaitility.await;
 public abstract class Page {
 
     static WebDriver driver;
-    private static WebDriverWait wait;
-    Page(WebDriver driver)
+    static WebDriverWait wait;
+
+    Page(WebDriver driver, int waitTime)
     {
         Page.driver = driver;
-        Page.wait = new WebDriverWait(driver, 30);
+        Page.wait = new WebDriverWait(driver, waitTime);
+
         PageFactory.initElements(driver, this);
     }
 

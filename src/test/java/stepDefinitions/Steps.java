@@ -98,10 +98,10 @@ public class Steps {
         driver.get(basePageUrl);
 
         // Page Object - assign
-        basePage = new BasePage(driver);
-        mainPage = new MainPage(driver);
-        workPage = new WorkPage(driver);
-        trainPage = new TrainPage(driver);
+        basePage = new BasePage(driver, envTimeoutIsAt);
+        mainPage = new MainPage(driver, envTimeoutIsAt);
+        workPage = new WorkPage(driver, envTimeoutIsAt);
+        trainPage = new TrainPage(driver, envTimeoutIsAt);
 
     }
 
