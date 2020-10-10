@@ -30,14 +30,14 @@ import static org.junit.Assert.*;
 public class Steps {
 
     //from Jenkins
-//    private String envLoginLogin = System.getenv("LOGIN_LOGIN");
-//    private String envLoginPassword = System.getenv("LOGIN_PASSWORD");
-//    private int envTimeoutIsAt = Integer.parseInt(System.getenv("TEST_TIMEOUT"));
+    private final String envLoginLogin = System.getenv("LOGIN_LOGIN");
+    private final String envLoginPassword = System.getenv("LOGIN_PASSWORD");
+    private final int envTimeoutIsAt = Integer.parseInt(System.getenv("TEST_TIMEOUT"));
 
     //from here
-    private final String envLoginLogin = "sledzik";
-    private final String envLoginPassword = "h@rdh@rd";
-    private final int envTimeoutIsAt = 60;
+//    private final String envLoginLogin = "sledzik";
+//    private final String envLoginPassword = "h@rdh@rd";
+//    private final int envTimeoutIsAt = 60;
 
     private static WebDriver driver;
 
