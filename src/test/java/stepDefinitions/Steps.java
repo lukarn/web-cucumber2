@@ -15,6 +15,8 @@ import pages.BasePage;
 import pages.MainPage;
 import pages.TrainPage;
 import pages.WorkPage;
+import utilities.Chrome;
+import utilities.MyWebDriver;
 import utilities.DriverManager;
 
 import java.io.File;
@@ -40,6 +42,8 @@ public class Steps {
 //    private final int envTimeoutIsAt = 60;
 
     private static WebDriver driver;
+
+    private MyWebDriver myWebDriver;
 
     // Page Objects
     private BasePage basePage;
@@ -89,10 +93,19 @@ public class Steps {
     @Given("Open the {string} and launch {string}")
     public void openTheAndLaunch(String browser, String basePageUrl) {
 
-        // setup driver
-        DriverManager driverManager = new DriverManager(driver);
-        //usingBrowser;
-        driver = driverManager.getDriver(browser);
+
+        myWebDriver = new MyWebDriver();
+        Chrome chrome = new Chrome(driver);
+        myWebDriver.driverConf(chrome);
+
+
+
+
+
+//        // setup driver
+//        DriverManager driverManager = new DriverManager(driver);
+//        //usingBrowser;
+//        driver = driverManager.getDriver(browser);
 
         //get to base page (from data provider)
         driver.get(basePageUrl);
