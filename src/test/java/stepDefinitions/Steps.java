@@ -27,17 +27,7 @@ import java.util.Objects;
 import static org.junit.Assert.*;
 
 
-public class Steps {
-
-    //from Jenkins
-    private final String envLoginLogin = System.getenv("LOGIN_LOGIN");
-    private final String envLoginPassword = System.getenv("LOGIN_PASSWORD");
-    private final int envTimeoutIsAt = Integer.parseInt(System.getenv("TEST_TIMEOUT"));
-
-    //from here
-//    private final String envLoginLogin = "sledzik";
-//    private final String envLoginPassword = "h@rdh@rd";
-//    private final int envTimeoutIsAt = 60;
+public class Steps implements EnvironmentVariables {
 
     private static WebDriver driver;
 
@@ -79,9 +69,9 @@ public class Steps {
         System.out.println("==============================================");
         System.out.println("=Test suite parameters(env. variables)       =");
         System.out.println("==============================================");
-        System.out.println("=envLoginLogin: " + envLoginLogin);
-        System.out.println("=envLoginPassword: " + envLoginPassword);
-        System.out.println("=timeoutIsAt: " + envTimeoutIsAt);
+        System.out.println("=envLoginLogin: " + LOGIN_LOGIN);
+        System.out.println("=envLoginPassword: " + LOGIN_PASSWORD);
+        System.out.println("=timeoutIsAt: " + TEST_TIMEOUT);
         System.out.println("==============================================");
     }
 
@@ -98,10 +88,10 @@ public class Steps {
         driver.get(basePageUrl);
 
         // Page Object - assign
-        basePage = new BasePage(driver, envTimeoutIsAt);
-        mainPage = new MainPage(driver, envTimeoutIsAt);
-        workPage = new WorkPage(driver, envTimeoutIsAt);
-        trainPage = new TrainPage(driver, envTimeoutIsAt);
+        basePage = new BasePage(driver, TEST_TIMEOUT);
+        mainPage = new MainPage(driver, TEST_TIMEOUT);
+        workPage = new WorkPage(driver, TEST_TIMEOUT);
+        trainPage = new TrainPage(driver, TEST_TIMEOUT);
 
     }
 
@@ -113,12 +103,12 @@ public class Steps {
 
     @And("Enter the Username")
     public void enterTheUsername() {
-        basePage.setLoginInput(envLoginLogin);
+        basePage.setLoginInput(LOGIN_LOGIN);
     }
 
     @And("Enter the Password")
     public void enterThePassword() {
-        basePage.setPasswordInput(envLoginPassword);
+        basePage.setPasswordInput(LOGIN_PASSWORD);
     }
 
     @And("Click Zaloguj button")
@@ -128,7 +118,7 @@ public class Steps {
 
     @Then("Check if user is logged in")
     public void checkIfUserIsLoggedIn() {
-        assertTrue("----------Log in fail - you are not on MainPage", mainPage.isAt(envTimeoutIsAt));
+        assertTrue("----------Log in fail - you are not on MainPage", mainPage.isAt(TEST_TIMEOUT));
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -136,11 +126,11 @@ public class Steps {
     @And("Login correct")
     public void loginCorrect() {
         basePage.setLoginButton()
-                .setLoginInput(envLoginLogin)
-                .setPasswordInput(envLoginPassword)
+                .setLoginInput(LOGIN_LOGIN)
+                .setPasswordInput(LOGIN_PASSWORD)
                 .setZalogujButton();
 
-        assertTrue("----------Log in fail - you are not on MainPage", mainPage.isAt(envTimeoutIsAt));
+        assertTrue("----------Log in fail - you are not on MainPage", mainPage.isAt(TEST_TIMEOUT));
     }
 
     @When("Click Work Button and go to work results")
@@ -155,12 +145,12 @@ public class Steps {
                     .setMenuWorkButton();
         }
 
-        assertTrue("----------Error - you are not on WorkPage", workPage.isAt(envTimeoutIsAt));
+        assertTrue("----------Error - you are not on WorkPage", workPage.isAt(TEST_TIMEOUT));
 
         if(!workPage.workCheck())
         {
             workPage.setWorkButton();
-            assertTrue("----------Error - you are not on WorkPage", workPage.isAt(envTimeoutIsAt));
+            assertTrue("----------Error - you are not on WorkPage", workPage.isAt(TEST_TIMEOUT));
         }
     }
 
@@ -183,12 +173,12 @@ public class Steps {
                     .setMenuTrainButton();
         }
 
-        assertTrue("----------Error - you are not on TrainPage", trainPage.isAt(envTimeoutIsAt));
+        assertTrue("----------Error - you are not on TrainPage", trainPage.isAt(TEST_TIMEOUT));
 
         if(!trainPage.trainCheck())
         {
             trainPage.setTrainButton();
-            assertTrue("----------Error - you are not on TrainPage", trainPage.isAt(envTimeoutIsAt));
+            assertTrue("----------Error - you are not on TrainPage", trainPage.isAt(TEST_TIMEOUT));
         }
     }
 

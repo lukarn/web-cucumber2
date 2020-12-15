@@ -17,18 +17,6 @@ public class DriverManager {
 
     private WebDriver driver;
 
-    private void getLocalHost() {
-        InetAddress ip;
-        try {
-            ip = InetAddress.getLocalHost();
-            System.out.println(">>>>>>>>>>Your current IP address : " + ip.getHostAddress());
-            System.out.println(">>>>>>>>>>Your current Hostname : " + ip.getHostName());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public DriverManager(WebDriver driver)
     {
         this.driver = driver;
@@ -54,10 +42,21 @@ public class DriverManager {
         return driver;
     }
 
+    private void getLocalHost() {
+        InetAddress ip;
+        try {
+            ip = InetAddress.getLocalHost();
+            System.out.println(">>>>>>>>>>Your current IP address : " + ip.getHostAddress());
+            System.out.println(">>>>>>>>>>Your current Hostname : " + ip.getHostName());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
     private WebDriver getChromeDriver()
     {
-
-
         HashMap<String, Object> chromePrefs = new HashMap<>();
         chromePrefs.put("profile.default_content_settings.popups", 0);
         chromePrefs.put("download.default_directory", System.getProperty("user.dir") + "/screenShots");
@@ -69,16 +68,15 @@ public class DriverManager {
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--disable-gpu");
 
-        //WebDriver driver = null;
-
 
         try {
             driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), options);
         } catch (Exception e) {
             e.printStackTrace();
-            fail("---------Driver = null - problem during chrome init in DriverManager; check if your webdriver server is working properly and its URL address (e.g. port, versions) in DriverManager.java");
+            fail("---------Problem during chrome init in DriverManager.java");
         }
 
+        System.out.println("Starting with chrome...");
 
         return driver;
     }
@@ -98,14 +96,14 @@ public class DriverManager {
         options.addArguments("--height=1080");
         options.setHeadless(true);
 
-        //WebDriver driver = null;
-
         try {
             driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), options);
         } catch (Exception e) {
             e.printStackTrace();
-            fail("---------Driver = null - problem during firefox init in DriverManager");
+            fail("---------Problem during firefox init in DriverManager.java");
         }
+
+        System.out.println("Starting with chrome...");
 
         return driver;
     }
