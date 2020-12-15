@@ -98,7 +98,7 @@ public class Steps {
         Chrome chrome = new Chrome(driver);
         myWebDriver.driverConf(chrome);
 
-
+        driver = chrome.getDriver();
 
 
 
