@@ -20,10 +20,6 @@ public class Chrome implements DriverConfiguration {
         return driver;
     }
 
-    public void setDriver(WebDriver driver) {
-        this.driver = driver;
-    }
-
     @Override
     public void setConfiguration() {
         System.out.println("This is chrome!");

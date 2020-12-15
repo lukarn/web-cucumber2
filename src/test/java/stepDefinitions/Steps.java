@@ -16,8 +16,8 @@ import pages.MainPage;
 import pages.TrainPage;
 import pages.WorkPage;
 import utilities.Chrome;
+import utilities.Firefox;
 import utilities.MyWebDriver;
-import utilities.DriverManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,7 +43,7 @@ public class Steps {
 
     private static WebDriver driver;
 
-    private MyWebDriver myWebDriver;
+    //private MyWebDriver myWebDriver;
 
     // Page Objects
     private BasePage basePage;
@@ -93,12 +93,29 @@ public class Steps {
     @Given("Open the {string} and launch {string}")
     public void openTheAndLaunch(String browser, String basePageUrl) {
 
+        MyWebDriver myWebDriver = new MyWebDriver();
+        switch (browser){
+            case "chrome":
+                Chrome chrome = new Chrome(driver);
+                myWebDriver.driverConf(chrome);
+                driver = chrome.getDriver();
+                break;
 
-        myWebDriver = new MyWebDriver();
-        Chrome chrome = new Chrome(driver);
-        myWebDriver.driverConf(chrome);
+            case "firefox":
+                Firefox firefox = new Firefox(driver);
+                myWebDriver.driverConf(firefox);
+                driver = firefox.getDriver();
+                break;
 
-        driver = chrome.getDriver();
+            default:
+                System.out.println("Web browser name not recognized. Check test parameters.");
+                fail("Browser not specified - tear down test suite.");
+
+        }
+        myWebDriver.getLocalHost();
+
+
+
 
 
 
