@@ -23,11 +23,9 @@ public class DriverManager {
             ip = InetAddress.getLocalHost();
             System.out.println(">>>>>>>>>>Your current IP address : " + ip.getHostAddress());
             System.out.println(">>>>>>>>>>Your current Hostname : " + ip.getHostName());
-            //return ip.getHostAddress();
 
         } catch (Exception e) {
             e.printStackTrace();
-            //return null;
         }
     }
 
@@ -38,21 +36,19 @@ public class DriverManager {
 
     public WebDriver getDriver(String usingBrowser)
     {
-        if(usingBrowser.equalsIgnoreCase("chrome"))
-        {
-            //run chromedriver
-            driver = getChromeDriver();
-            System.out.println("start with chromedriver :)");
-        }
-        else if(usingBrowser.equalsIgnoreCase("firefox"))
-        {
-            //run firefox
-            driver = getFirefoxDriver();
-            System.out.println("start with firefoxdriver :)");
-        }
-        else {
-            //other drivers to implement!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            System.out.println("---------other driver to implement");
+        getLocalHost();
+
+        switch (usingBrowser){
+            case "chrome":
+                driver = getChromeDriver();
+                break;
+
+            case "firefox":
+                driver = getFirefoxDriver();
+                break;
+
+            default:
+                fail("---------Can not launch browser: " + usingBrowser + " check parameter name or browser implementation.");
         }
 
         return driver;
@@ -73,22 +69,7 @@ public class DriverManager {
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--disable-gpu");
 
-
-        // working logs !!!! :)
-//        System.setProperty("webdriver.chrome.driver", "C:/selGrid/chromedriver.exe");
-//        System.setProperty("webdriver.chrome.logfile", System.getProperty("user.dir") + "/screenShots/chromedriver.log");
-//        System.setProperty("webdriver.chrome.verboseLogging", "true");
-//        WebDriver driver = new ChromeDriver(options);
-
-
-        WebDriver driver = null;
-
-//        try {
-//            driver = new RemoteWebDriver(new URL("http://localhost:5555/wd/hub"), options);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            fail("---------Driver = null - problem during chrome init in DriverManager");
-//        }
+        //WebDriver driver = null;
 
 
         try {
@@ -117,12 +98,10 @@ public class DriverManager {
         options.addArguments("--height=1080");
         options.setHeadless(true);
 
-        WebDriver driver = null;
+        //WebDriver driver = null;
 
         try {
             driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), options);
-            //driver = new RemoteWebDriver(new URL("http://localhost:5555/wd/hub"), options);
-            getLocalHost();
         } catch (Exception e) {
             e.printStackTrace();
             fail("---------Driver = null - problem during firefox init in DriverManager");
