@@ -7,9 +7,6 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import pages.BasePage;
 import pages.MainPage;
@@ -17,17 +14,10 @@ import pages.TrainPage;
 import pages.WorkPage;
 import utilities.DriverManager;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Objects;
-
 import static org.junit.Assert.*;
 
 
-public class Steps implements EnvironmentVariables {
+public class Steps implements EnvironmentVariables, DefaultMethods {
 
     private static WebDriver driver;
 
@@ -37,42 +27,12 @@ public class Steps implements EnvironmentVariables {
     private WorkPage workPage;
     private TrainPage trainPage;
 
-    // Take screenshots
-    private static void takeScreenshot(String status, String tags) {
-        TakesScreenshot ts;
-        ts = (TakesScreenshot) driver;
-
-        if (ts != null) {
-            File srcFile = ts.getScreenshotAs(OutputType.FILE);
-
-            try {
-                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
-                Date date = new Date();
-
-                //ScreenShot
-                FileUtils.copyFile(srcFile, new File(System.getProperty("user.dir") + "/screenShots/" + status + dateFormat.format(date) + tags + ".png"));
-                System.out.println("Screenshot saved: " + System.getProperty("user.dir") + "/screenShots/" + status + dateFormat.format(date) + tags + ".png");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            System.out.println("No driver - no photo.");
-        }
-
-    }
-
     @Before
     public void beginOfTestSuite(){
+        System.out.println();
         System.out.println("=============================TEST=BEGIN=====================================");
         System.out.println("============================================================================");
         System.out.println("============================================================================");
-        System.out.println("==============================================");
-        System.out.println("=Test suite parameters(env. variables)       =");
-        System.out.println("==============================================");
-        System.out.println("=envLoginLogin: " + LOGIN_LOGIN);
-        System.out.println("=envLoginPassword: " + LOGIN_PASSWORD);
-        System.out.println("=timeoutIsAt: " + TEST_TIMEOUT);
-        System.out.println("==============================================");
     }
 
 
@@ -194,38 +154,15 @@ public class Steps implements EnvironmentVariables {
     @After
     public static void endOfTestSuite(Scenario scenario)
     {
-        System.out.println("=scenario.getStatus() >>>>>>>" + scenario.getStatus() + "<<<<<<<");
-        System.out.println("=scenario.isFailed() >>>>>>>" + scenario.isFailed() + "<<<<<<<");
-        //System.out.println("scenario.getId() >>>>>>>" + scenario.getId() + "<<<<<<<");
-        System.out.println("=scenario.getName() >>>>>>>" + scenario.getName() + "<<<<<<<");
-        //System.out.println("scenario.getLine() >>>>>>>" + scenario.getLine() + "<<<<<<<");
-        System.out.println("=scenario.getSourceTagNames() >>>>>>>" + scenario.getSourceTagNames() + "<<<<<<<");
-        //System.out.println("scenario.getUri() >>>>>>>" + scenario.getUri() + "<<<<<<<");
+        CommonMethods.printTestScenarioStatus(scenario);
 
-        String simpleTagsString = Objects.toString(scenario.getSourceTagNames()).replace("@","").replace("[","").replace("]","").replace(" ","").replace(","," ");
-        System.out.println("=Tags in simle format >>>>>>>" + simpleTagsString + "<<<<<<<");
+        CommonMethods.takeScreenShotIfOK(scenario, driver);
+        CommonMethods.takeScreenShotIfNOK(scenario, driver);
 
-
-                
-        if(scenario.isFailed() || scenario.getStatus().toString().equalsIgnoreCase("UNDEFINED")) {
-            takeScreenshot("NOK", simpleTagsString);
-        }
-
-        if(!scenario.isFailed() && scenario.getStatus().toString().equalsIgnoreCase("PASSED")) {
-            takeScreenshot("OK", simpleTagsString);
-        }
-
-
-
-        if(driver != null){
-            driver.quit();
-        }else{
-            System.out.println("Something is wrong ---> driver = null in AfterMethod");
-        }
+        CommonMethods.driverQuit(driver);
         System.out.println("============================================================================");
         System.out.println("============================================================================");
         System.out.println("=============================TEST=END=======================================");
-        System.out.println();
         System.out.println();
     }
 

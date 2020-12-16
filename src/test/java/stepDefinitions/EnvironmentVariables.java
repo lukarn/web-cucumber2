@@ -47,53 +47,7 @@ public interface EnvironmentVariables {
     }
 
 
-//    //  "yyyy-MM-dd HH-mm-ss"
-//    default String getDateOrTime(String patternSimpleDateFormat, int daysToAdd){
-//        String dt = new SimpleDateFormat(patternSimpleDateFormat).format(Calendar.getInstance().getTime());
-//
-//        SimpleDateFormat sdf = new SimpleDateFormat(patternSimpleDateFormat);
-//        Calendar c = Calendar.getInstance();
-//
-//        try {
-//            c.setTime(sdf.parse(dt));
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//
-//        c.add(Calendar.DATE, daysToAdd);  // number of days to add
-//        dt = sdf.format(c.getTime());  // dt is now the new date
-//
-//        return dt;
-//
-//    }
-//
-//    //  System.out.println(saveScreenShot((TakesScreenshot) driver, getDateOrTime("yyyy-MM-dd HH-mm-ss", 0)));
-//    default String saveScreenShot(TakesScreenshot ts, String currentTime){
-//
-//
-//        String filePath = null;
-//
-//        if(ts != null) {
-//            File srcFile = ts.getScreenshotAs(OutputType.FILE);
-//
-//            try {
-//                //ScreenShot
-//                filePath = System.getProperty("user.dir") + "/screenShots/OK" + currentTime + ".png";
-//                FileUtils.copyFile(srcFile, new File(filePath));
-//                System.out.println("Saving screenshot on request... " + filePath + " [OK]");
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        else
-//        {
-//            System.out.println("No driver - no photo. Saving screenshot [NOK]");
-//            filePath = "No file = no file path [NOK]";
-//        }
-//
-//        return filePath;
-//
-//    }
+
 
 
 
