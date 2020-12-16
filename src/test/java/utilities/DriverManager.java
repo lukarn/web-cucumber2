@@ -103,7 +103,7 @@ public class DriverManager {
             fail("---------Problem during firefox init in DriverManager.java");
         }
 
-        System.out.println("Starting with chrome...");
+        System.out.println("Starting with firefox...");
 
         return driver;
     }

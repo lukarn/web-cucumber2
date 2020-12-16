@@ -17,7 +17,7 @@ import utilities.DriverManager;
 import static org.junit.Assert.*;
 
 
-public class Steps implements EnvironmentVariables, DefaultMethods {
+public class Steps implements EnvironmentVariables {
 
     private static WebDriver driver;
 
@@ -156,7 +156,6 @@ public class Steps implements EnvironmentVariables, DefaultMethods {
     {
         CommonMethods.printTestScenarioStatus(scenario);
 
-        CommonMethods.takeScreenShotIfOK(scenario, driver);
         CommonMethods.takeScreenShotIfNOK(scenario, driver);
 
         CommonMethods.driverQuit(driver);

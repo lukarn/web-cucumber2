@@ -43,7 +43,7 @@ public interface EnvironmentVariables {
     }
 
     static void printVariable(String label, String varName, String varValue){
-        System.out.println("==" + label + "==" + varName + "=" + varValue);
+        System.out.println("==" + label + "== >>>>>>>>>>>>>>>>>> " + varName + "=" + varValue);
     }
 
 

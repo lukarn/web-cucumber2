@@ -29,22 +29,15 @@ public class CommonMethods {
         return Objects.toString(scenario.getSourceTagNames()).replace("@","").replace("[","").replace("]","").replace(" ","").replace(","," ");
     }
 
-    public static void takeScreenShotIfOK(Scenario scenario, WebDriver driver){
-
-        if(!scenario.isFailed() && scenario.getStatus().toString().equalsIgnoreCase("PASSED")) {
-            takeScreenshot("OK", getSimpleTagString(scenario), driver);
-        }
-    }
-
     public static void takeScreenShotIfNOK(Scenario scenario, WebDriver driver){
         if(scenario.isFailed() || scenario.getStatus().toString().equalsIgnoreCase("UNDEFINED")) {
-            takeScreenshot("NOK", getSimpleTagString(scenario), driver);
+            takeScreenshot(getSimpleTagString(scenario), driver);
         }
     }
 
 
     // Take screenshots
-    private static void takeScreenshot(String status, String tags, WebDriver driver) {
+    private static void takeScreenshot(String tags, WebDriver driver) {
         TakesScreenshot ts;
         ts = (TakesScreenshot) driver;
 
@@ -53,8 +46,8 @@ public class CommonMethods {
 
             try {
                 //ScreenShot
-                FileUtils.copyFile(srcFile, new File(System.getProperty("user.dir") + "/screenShots/" + status + getDateOrTime("yyyy-MM-dd HH-mm-ss", 0) + tags + ".png"));
-                System.out.println("Screenshot saved: " + System.getProperty("user.dir") + "/screenShots/" + status + getDateOrTime("yyyy-MM-dd HH-mm-ss", 0) + tags + ".png");
+                FileUtils.copyFile(srcFile, new File(System.getProperty("user.dir") + "/screenShots/" + "NOK" + getDateOrTime("yyyy-MM-dd HH-mm-ss", 0) + tags + ".png"));
+                System.out.println("Screenshot saved: " + System.getProperty("user.dir") + "/screenShots/" + "NOK" + getDateOrTime("yyyy-MM-dd HH-mm-ss", 0) + tags + ".png");
             } catch (IOException e) {
                 e.printStackTrace();
             }
