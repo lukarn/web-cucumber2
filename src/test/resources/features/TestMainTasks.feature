@@ -35,22 +35,22 @@ Feature: Login and Main tasks
     Examples:
       | browser | basePage                   |
       | chrome  | https://primera.e-sim.org/ |
-      | firefox | https://primera.e-sim.org/ |
-
-
-
-  @MainTaskTrain
-  Scenario Outline: Check Train activity
-
-
-    Given Open the "<browser>" and launch "<basePage>"
-      And Login correct
-
-    When Click Train button and go to train results
-
-    Then  Check train results
-
-    Examples:
-      | browser | basePage                   |
-      | chrome  | https://primera.e-sim.org/ |
-      | firefox | https://primera.e-sim.org/ |
+#      | firefox | https://primera.e-sim.org/ |
+#
+#
+#
+#  @MainTaskTrain
+#  Scenario Outline: Check Train activity
+#
+#
+#    Given Open the "<browser>" and launch "<basePage>"
+#      And Login correct
+#
+#    When Click Train button and go to train results
+#
+#    Then  Check train results
+#
+#    Examples:
+#      | browser | basePage                   |
+#      | chrome  | https://primera.e-sim.org/ |
+#      | firefox | https://primera.e-sim.org/ |
